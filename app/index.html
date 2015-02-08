@@ -16,28 +16,37 @@
     <!-- endbuild -->
     <base href="/" />
   </head>
-  <body>
+  <body ng-controller="BodyCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <taskrheader></taskrheader>
-    <!-- <taskrnavigationpane></taskrnavigationpane> -->
     <div class="container-fluid">
       <div class="row">
-
         <div class="col-md-10 col-md-push-2">
           <div class="row">
-            <taskrindividualtaskpane></taskrindividualtaskpane>
-            <taskrprojectpane></taskrprojectpane>
-            
+            <div class="col-md-5 col-md-push-7" style="background-color:green;">
+              <!-- Task Details here -->
+              <div ui-view="TaskDetailsView">
+              </div>
+            </div>
+            <div class="col-md-7 col-md-pull-5">
+              <!-- Listing all the tasks of a project here -->
+              <div ui-view="ProjectDetailsView">
+              </div>
+            </div>
           </div>
         </div>
-        <taskrnavigationpane></taskrnavigationpane>
+        <div class="col-md-2 col-md-pull-10" style="background-color:red;">
+          <h2>{UserName}</h2>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="project in projects"><a ui-sref="project({projectId:project.id})">{{project.name}}</a></li>
+          </ul>
+        </div>
         
       </div>
-      <!-- <div ui-view></div> -->
     </div>
     <taskrfooter></taskrfooter>
     
@@ -65,18 +74,21 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="config/app.js"></script>
         <script src="config/app-states.js"></script>
+        <script src="components/shared/controller-body.js"></script>
         <script src="components/shared/directives/directive-header.js"></script>
         <script src="components/shared/directives/directive-footer.js"></script>
-        <script src="components/shared/directives/directive-navigation-pane.js"></script>
-        <script src="components/shared/directives/directive-individual-task-pane.js"></script>
-        <script src="components/shared/directives/directive-projectpane.js"></script>
         <script src="components/main/main.js"></script>
+        <script src="components/project/controller-project.js"></script>
+        <script src="components/project/controller-project-analytics.js"></script>
+        <script src="components/task/controller-task.js"></script>
         <script src="components/about/about.js"></script>
         <!-- endbuild -->
 </body>

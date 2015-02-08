@@ -7,34 +7,36 @@ taskrApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', fu
   $stateProvider
   .state('home', {
     url: '/',
-    templateUrl: 'components/main/main.html',
-    controller: 'MainCtrl'
+    controller: 'MainCtrl',
+    views: {
+      "ProjectDetailsView": {
+        templateUrl: "components/main/main.html"
+      }, 
+      "TaskDetailsView": {
+        templateUrl: "components/about/about.html"
+      }
+    }
   })
-  .state('about', {
-    url: '/about',
-    templateUrl: 'components/about/about.html',
-    controller: 'AboutCtrl'
+  .state('project', {
+    url: '/project/{projectId}', 
+    views: {
+      "ProjectDetailsView": {
+        templateUrl: "components/shared/projectpaneView.html",
+        controller: "ProjectController"
+      }, 
+      "TaskDetailsView": {
+        templateUrl: "components/project/projectanalytics.html",
+        controller: "TaskAnalyticsController"
+      }
+    }
   })
-
+    .state('project.task', {
+      url: '/{taskId}', 
+      views: {
+        "TaskDetailsView@": {
+          templateUrl: "components/shared/individualtaskpaneView.html",
+          controller: "TaskController"
+        }
+      }
+    })
 }]);
-// ttl.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-//   function($stateProvider, $urlRouterProvider, $locationProvider) {
-
-//   $urlRouterProvider.otherwise('/');
-
-//   $urlRouterProvider.rule(function($injector, $location) {
-//     var path = $location.path();
-//     var hasTrailingSlash = path[path.length-1] === '/';
-//     if(hasTrailingSlash) {
-//       //if last charcter is a slash, return the same url without the slash  
-//       var newPath = path.substr(0, path.length - 1); 
-//       return newPath; 
-//     } 
-    
-//   });
-
-//   $stateProvider
-    
-    
-    
-// }]);
